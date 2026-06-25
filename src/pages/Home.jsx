@@ -2,110 +2,125 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const products = [
-  { id: 1, name: 'Aloo (1kg)', price: 30, emoji: '🥔', rating: 4.5, time: '10-15 min', off: '10% OFF' },
-  { id: 2, name: 'Tamatar (1kg)', price: 25, emoji: '🍅', rating: 4.3, time: '10-15 min', off: '15% OFF' },
-  { id: 3, name: 'Pyaz (1kg)', price: 40, emoji: '🧅', rating: 4.6, time: '10-15 min', off: '5% OFF' },
-  { id: 4, name: 'Doodh (1L)', price: 60, emoji: '🥛', rating: 4.8, time: '10-15 min', off: '20% OFF' },
-  { id: 5, name: 'Bread', price: 45, emoji: '🍞', rating: 4.2, time: '10-15 min', off: '10% OFF' },
-  { id: 6, name: 'Ande (12pcs)', price: 80, emoji: '🥚', rating: 4.7, time: '10-15 min', off: '12% OFF' },
+  { id: 1, name: 'Aloo (1kg)', price: 30, mrp: 40, emoji: '🥔', rating: 4.5, time: '10 min', off: 25, unit: '1 kg' },
+  { id: 2, name: 'Tamatar (1kg)', price: 25, mrp: 35, emoji: '🍅', rating: 4.3, time: '10 min', off: 29, unit: '1 kg' },
+  { id: 3, name: 'Pyaz (1kg)', price: 40, mrp: 50, emoji: '🧅', rating: 4.6, time: '10 min', off: 20, unit: '1 kg' },
+  { id: 4, name: 'Doodh (1L)', price: 60, mrp: 70, emoji: '🥛', rating: 4.8, time: '10 min', off: 14, unit: '1 L' },
+  { id: 5, name: 'Bread', price: 45, mrp: 55, emoji: '🍞', rating: 4.2, time: '10 min', off: 18, unit: '1 Pack' },
+  { id: 6, name: 'Ande (12pcs)', price: 80, mrp: 96, emoji: '🥚', rating: 4.7, time: '10 min', off: 17, unit: '12 pcs' },
+  { id: 7, name: 'Gajar (500g)', price: 20, mrp: 30, emoji: '🥕', rating: 4.4, time: '10 min', off: 33, unit: '500 g' },
+  { id: 8, name: 'Palak (250g)', price: 15, mrp: 20, emoji: '🥬', rating: 4.1, time: '10 min', off: 25, unit: '250 g' },
 ]
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Poppins',sans-serif}
-  @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-40px)}}
-  @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,30px)}}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes pulse{0%,100%{box-shadow:0 0 15px #d4a01744}50%{box-shadow:0 0 30px #d4a017aa}}
-  .orb1{position:fixed;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,#d4a01720,transparent);top:-150px;right:-100px;animation:float1 8s ease-in-out infinite;pointer-events:none;z-index:0}
-  .orb2{position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,#ffd70015,transparent);bottom:-100px;left:-100px;animation:float2 10s ease-in-out infinite;pointer-events:none;z-index:0}
-  .search-bar{width:100%;padding:13px 16px 13px 44px;border-radius:14px;border:1px solid rgba(212,160,23,0.3);background:rgba(255,255,255,0.07);color:white;font-size:14px;font-family:'Poppins',sans-serif;outline:none;box-sizing:border-box}
-  .offer-badge{background:linear-gradient(135deg,#d4a017,#ffd700);color:#1a3a1a;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px}
-  .card{background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(212,160,23,0.2);border-radius:18px;padding:16px;animation:fadeUp 0.4s ease forwards;transition:transform 0.3s;cursor:pointer}
-  .card:active{transform:scale(0.97)}
-  .add-btn{background:linear-gradient(135deg,#d4a017,#ffd700);color:#1a3a1a;border:none;padding:9px 0;border-radius:25px;font-weight:700;font-size:13px;width:100%;cursor:pointer;margin-top:10px;font-family:'Poppins',sans-serif;animation:pulse 2s infinite}
-  .cart-fab{position:fixed;bottom:24px;right:20px;background:linear-gradient(135deg,#d4a017,#ffd700);color:#1a3a1a;border:none;padding:14px 20px;border-radius:30px;font-weight:700;font-size:15px;cursor:pointer;z-index:100;box-shadow:0 8px 30px #d4a01755;font-family:'Poppins',sans-serif}
-  .section-title{font-size:17px;font-weight:700;margin:20px 0 12px;color:#ffd700}
-  .offer-card{background:rgba(212,160,23,0.1);backdrop-filter:blur(20px);border:1px solid rgba(212,160,23,0.25);border-radius:16px;padding:16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-  .apply-btn{background:linear-gradient(135deg,#d4a017,#ffd700);color:#1a3a1a;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:'Poppins',sans-serif}
+  body{font-family:'Poppins',sans-serif;background:#f8f8f8}
+  .header{background:white;padding:12px 16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+  .search-box{display:flex;align-items:center;background:#f0f0f0;border-radius:12px;padding:10px 14px;gap:8px}
+  .search-input{border:none;background:transparent;font-size:14px;font-family:'Poppins',sans-serif;outline:none;width:100%;color:#333}
+  .filter-bar{display:flex;gap:8px;padding:10px 16px;overflow-x:auto;background:white;border-bottom:1px solid #f0f0f0}
+  .filter-btn{border:1px solid #ddd;background:white;padding:6px 14px;border-radius:20px;font-size:12px;font-family:'Poppins',sans-serif;white-space:nowrap;color:#333;cursor:pointer;display:flex;align-items:center;gap:4px}
+  .product-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:#f0f0f0;padding:0}
+  .product-card{background:white;padding:12px;position:relative;cursor:pointer}
+  .product-card:active{background:#fafafa}
+  .discount-badge{position:absolute;top:8px;left:8px;background:#256fef;color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px}
+  .wishlist-btn{position:absolute;top:8px;right:8px;background:white;border:none;font-size:16px;cursor:pointer;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,0.15)}
+  .add-btn{position:absolute;bottom:12px;right:12px;background:white;border:1.5px solid #256fef;color:#256fef;width:28px;height:28px;border-radius:8px;font-size:18px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif}
+  .added-btn{position:absolute;bottom:12px;right:12px;background:#256fef;border:none;color:white;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;padding:4px 8px;gap:4px;font-family:'Poppins',sans-serif}
+  .cart-bar{position:fixed;bottom:0;left:0;right:0;background:#256fef;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;z-index:200}
+  .view-cart-btn{background:white;color:#256fef;border:none;padding:8px 16px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;font-family:'Poppins',sans-serif;display:flex;align-items:center;gap:6px}
+  .section-title{padding:12px 16px 8px;font-size:15px;font-weight:700;color:#1a1a1a;background:white;border-bottom:1px solid #f0f0f0}
 `
 
 export default function Home() {
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState({})
   const [search, setSearch] = useState('')
   const navigate = useNavigate()
 
   const filtered = products.filter(p => p.name.toLowerCase().includes(search.toLowerCase()))
+  const totalItems = Object.values(cart).reduce((a, b) => a + b, 0)
+  const totalPrice = products.reduce((sum, p) => sum + (cart[p.id] || 0) * p.price, 0)
 
-  const addToCart = (product) => setCart([...cart, product])
+  const addItem = (id) => setCart(prev => ({ ...prev, [id]: (prev[id] || 0) + 1 }))
+  const removeItem = (id) => setCart(prev => ({ ...prev, [id]: Math.max((prev[id] || 0) - 1, 0) }))
 
   return (
-    <div style={{ background: 'linear-gradient(160deg,#0a1f0a 0%,#0d2b0d 40%,#0a1f0a 100%)', minHeight: '100vh', color: 'white', paddingBottom: '100px', fontFamily: 'Poppins,sans-serif' }}>
+    <div style={{ background: '#f8f8f8', minHeight: '100vh', fontFamily: 'Poppins,sans-serif', paddingBottom: totalItems > 0 ? '70px' : '0' }}>
       <style>{styles}</style>
-      <div className="orb1" /><div className="orb2" />
 
       {/* Header */}
-      <div style={{ background: 'rgba(10,40,10,0.8)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(212,160,23,0.2)', padding: '16px 20px', position: 'sticky', top: 0, zIndex: 50 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-          <div>
-            <div style={{ fontSize: '20px', fontWeight: '800', background: 'linear-gradient(135deg,#d4a017,#ffd700)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>🛒 OMYangmart</div>
-            <div style={{ fontSize: '11px', color: '#d4a01788', letterSpacing: '1px' }}>📍 Aapke Ghar Tak</div>
-          </div>
-          <div style={{ background: 'rgba(212,160,23,0.15)', border: '1px solid rgba(212,160,23,0.3)', borderRadius: '20px', padding: '6px 14px', fontSize: '13px', fontWeight: '600', color: '#ffd700' }}>
-            🛒 {cart.length}
+      <div className="header">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: '16px', fontWeight: '800', color: '#1a1a1a' }}>🛒 OMYangmart</div>
+            <div style={{ fontSize: '11px', color: '#256fef', fontWeight: '500' }}>📍 Aapke Ghar Tak • 10 min</div>
           </div>
         </div>
-        <div style={{ position: 'relative' }}>
-          <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', fontSize: '16px' }}>🔍</span>
-          <input className="search-bar" placeholder="Grocery dhundo..." value={search} onChange={e => setSearch(e.target.value)} />
+        <div className="search-box">
+          <span style={{ fontSize: '16px', color: '#888' }}>🔍</span>
+          <input className="search-input" placeholder="Grocery, vegetables dhundo..." value={search} onChange={e => setSearch(e.target.value)} />
+          {search && <span style={{ fontSize: '16px', cursor: 'pointer', color: '#888' }} onClick={() => setSearch('')}>✕</span>}
         </div>
       </div>
 
-      <div style={{ padding: '16px 20px', position: 'relative', zIndex: 1 }}>
-        {/* Offers */}
-        <div className="section-title">🏷️ Aaj Ke Offers</div>
-        <div className="offer-card">
-          <div>
-            <div style={{ fontWeight: '700', fontSize: '15px', color: '#ffd700' }}>FLAT ₹30 OFF</div>
-            <div style={{ fontSize: '12px', color: '#ffffff66' }}>₹199 se upar ke orders par</div>
-          </div>
-          <button className="apply-btn">APPLY</button>
-        </div>
-        <div className="offer-card">
-          <div>
-            <div style={{ fontWeight: '700', fontSize: '15px', color: '#ffd700' }}>FREE DELIVERY</div>
-            <div style={{ fontSize: '12px', color: '#ffffff66' }}>₹299 se upar ke orders par</div>
-          </div>
-          <button className="apply-btn">APPLY</button>
-        </div>
-
-        {/* Products */}
-        <div className="section-title">🥦 Fresh Grocery</div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-          {filtered.map((p, i) => (
-            <div key={p.id} className="card" style={{ animationDelay: `${i * 0.08}s` }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                <span className="offer-badge">{p.off}</span>
-                <span style={{ fontSize: '10px', color: '#ffffff44' }}>⏱ {p.time}</span>
-              </div>
-              <div style={{ fontSize: '42px', textAlign: 'center', margin: '8px 0' }}>{p.emoji}</div>
-              <div style={{ fontWeight: '600', fontSize: '13px', textAlign: 'center' }}>{p.name}</div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '6px 0' }}>
-                <span style={{ background: 'linear-gradient(135deg,#d4a017,#ffd700)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: '700', fontSize: '16px' }}>₹{p.price}</span>
-                <span style={{ fontSize: '11px', color: '#ffd700' }}>⭐ {p.rating}</span>
-              </div>
-              <button className="add-btn" onClick={() => addToCart(p)}>+ Add</button>
-            </div>
-          ))}
-        </div>
+      {/* Filter Bar */}
+      <div className="filter-bar">
+        <button className="filter-btn">⚡ Quick</button>
+        <button className="filter-btn">🛍 Shop All</button>
+        <button className="filter-btn">≡ Filters</button>
+        <button className="filter-btn">↕ Sort</button>
+        <button className="filter-btn">🏷 Brands ▾</button>
+        <button className="filter-btn">% Discount ▾</button>
       </div>
 
-      {cart.length > 0 && (
-        <button className="cart-fab" onClick={() => navigate('/cart')}>
-          🛒 {cart.length} items · Cart Dekho →
-        </button>
+      {/* Results text */}
+      {search && (
+        <div style={{ padding: '8px 16px', fontSize: '12px', color: '#666', background: 'white', borderBottom: '1px solid #f0f0f0' }}>
+          Showing results for '<span style={{ color: '#256fef', fontWeight: '600' }}>{search}</span>'
+        </div>
+      )}
+
+      {/* Section Title */}
+      <div className="section-title">🥦 Fresh Vegetables & Grocery</div>
+
+      {/* Product Grid */}
+      <div className="product-grid">
+        {filtered.map(p => (
+          <div key={p.id} className="product-card">
+            <span className="discount-badge">{p.off}% off</span>
+            <button className="wishlist-btn">🤍</button>
+            <div style={{ fontSize: '52px', textAlign: 'center', margin: '24px 0 8px' }}>{p.emoji}</div>
+            <div style={{ fontSize: '10px', color: '#888', marginBottom: '2px' }}>{p.unit}</div>
+            <div style={{ fontSize: '12px', fontWeight: '600', color: '#1a1a1a', marginBottom: '4px', lineHeight: '1.3' }}>{p.name}</div>
+            <div style={{ fontSize: '13px', fontWeight: '700', color: '#1a1a1a' }}>₹{p.price}</div>
+            <div style={{ fontSize: '10px', color: '#999', textDecoration: 'line-through' }}>₹{p.mrp}</div>
+            <div style={{ height: '32px' }} />
+            {cart[p.id] > 0 ? (
+              <div className="added-btn">
+                <span onClick={() => removeItem(p.id)} style={{ cursor: 'pointer', fontSize: '14px' }}>−</span>
+                <span>{cart[p.id]}</span>
+                <span onClick={() => addItem(p.id)} style={{ cursor: 'pointer', fontSize: '14px' }}>+</span>
+              </div>
+            ) : (
+              <button className="add-btn" onClick={() => addItem(p.id)}>+</button>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Cart Bar */}
+      {totalItems > 0 && (
+        <div className="cart-bar">
+          <div>
+            <div style={{ color: 'white', fontWeight: '700', fontSize: '14px' }}>{totalItems} items • ₹{totalPrice}</div>
+            <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '11px' }}>Extra charges may apply</div>
+          </div>
+          <button className="view-cart-btn" onClick={() => navigate('/cart')}>
+            View Cart →
+          </button>
+        </div>
       )}
     </div>
   )
-      }
+                                                }
