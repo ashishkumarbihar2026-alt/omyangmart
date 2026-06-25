@@ -122,5 +122,19 @@ export default function Home() {
         </div>
       )}
     </div>
+    {/* Bottom Nav */}
+      <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'white', borderTop: '1px solid #f0f0f0', display: 'flex', padding: '8px 0', zIndex: 150 }}>
+        {[
+          { icon: '🏠', label: 'Home', path: '/' },
+          { icon: '🔍', label: 'Search', path: '/' },
+          { icon: '🛒', label: 'Cart', path: '/cart' },
+          { icon: '👤', label: 'Profile', path: '/profile' },
+        ].map(item => (
+          <div key={item.label} onClick={() => navigate(item.path)} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', cursor: 'pointer', padding: '4px 0' }}>
+            <span style={{ fontSize: '20px' }}>{item.icon}</span>
+            <span style={{ fontSize: '10px', color: item.label === 'Home' ? '#1a6b1a' : '#888', fontWeight: item.label === 'Home' ? '600' : '400' }}>{item.label}</span>
+          </div>
+        ))}
+      </div>
   )
                                                 }
