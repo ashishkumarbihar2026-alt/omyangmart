@@ -32,7 +32,7 @@ export default function Login() {
   }
 
   return (
-    <div style={{ background: 'linear-gradient(160deg,#0a0500 0%,#1a0a00 50%,#0a0500 100%)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', fontFamily: 'Poppins,sans-serif' }}>
+    <div style={{background: 'linear-gradient(135deg,#0f0c29,#302b63,#24243e)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', fontFamily: 'Poppins,sans-serif' }}>
       <style>{styles}</style>
       <div className="orb1" /><div className="orb2" />
       <div style={{ width: '100%', maxWidth: '400px', position: 'relative', zIndex: 1 }}>
