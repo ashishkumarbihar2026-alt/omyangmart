@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { auth } from '../firebase'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 
 const products = [
   { id: 1, name: 'Aloo (1kg)', price: 30, mrp: 40, emoji: '🥔', rating: 4.5, time: '10 min', off: 25, unit: '1 kg' },
@@ -35,7 +37,13 @@ const styles = `
 export default function Home() {
   const [cart, setCart] = useState({})
   const [search, setSearch] = useState('')
+  const [user, setUser] = useState(null)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => setUser(u))
+    return unsub
+  }, [])
 
   const filtered = products.filter(p => p.name.toLowerCase().includes(search.toLowerCase()))
   const totalItems = Object.values(cart).reduce((a, b) => a + b, 0)
@@ -55,9 +63,16 @@ export default function Home() {
             <div style={{ fontSize: '16px', fontWeight: '800', color: '#1a1a1a' }}>🛒 OMYangmart</div>
             <div style={{ fontSize: '11px', color: '#256fef', fontWeight: '500' }}>📍 Aapke Ghar Tak • 10 min</div>
           </div>
-          <button onClick={() => navigate('/login')} style={{ background: '#f0f8f0', border: '1px solid #1a6b1a', color: '#1a6b1a', padding: '6px 14px', borderRadius: '20px', fontWeight: '600', fontSize: '12px', cursor: 'pointer', fontFamily: 'Poppins,sans-serif' }}>
-            Login
-          </button>
+          {user ? (
+            <div onClick={() => navigate('/profile')} style={{ display: 'flex', alignItems: 'center', gap: '6px', background: '#f0f8f0', border: '1px solid #1a6b1a', padding: '6px 12px', borderRadius: '20px', cursor: 'pointer' }}>
+              <span style={{ fontSize: '14px' }}>👤</span>
+              <span style={{ fontSize: '12px', fontWeight: '600', color: '#1a6b1a', maxWidth: '80px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.email.split('@')[0]}</span>
+            </div>
+          ) : (
+            <button onClick={() => navigate('/login')} style={{ background: '#f0f8f0', border: '1px solid #1a6b1a', color: '#1a6b1a', padding: '6px 14px', borderRadius: '20px', fontWeight: '600', fontSize: '12px', cursor: 'pointer', fontFamily: 'Poppins,sans-serif' }}>
+              Login
+            </button>
+          )}
         </div>
         <div className="search-box">
           <span style={{ fontSize: '16px', color: '#888' }}>🔍</span>
@@ -129,4 +144,4 @@ export default function Home() {
       </div>
     </div>
   )
-                                                        }
+    }
