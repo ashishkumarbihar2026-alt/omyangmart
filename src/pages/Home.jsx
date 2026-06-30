@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../firebase'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth'
 
 const products = [
   { id: 1, name: 'Aloo (1kg)', price: 30, mrp: 40, emoji: '🥔', rating: 4.5, time: '10 min', off: 25, unit: '1 kg' },
@@ -50,11 +50,12 @@ export default function Home() {
   const totalPrice = products.reduce((sum, p) => sum + (cart[p.id] || 0) * p.price, 0)
 
   const addItem = (id) => setCart(prev => ({ ...prev, [id]: (prev[id] || 0) + 1 }))
-  const removeItem = (id) => setCart(prev => ({ ...prev, [id]: Math.max((prev[id] || 0) - 1, 0) }))return (
+  const removeItem = (id) => setCart(prev => ({ ...prev, [id]: Math.max((prev[id] || 0) - 1, 0) }))
+
+  return (
     <div style={{ background: '#f8f8f8', minHeight: '100vh', fontFamily: 'Poppins,sans-serif', paddingBottom: '120px' }}>
       <style>{styles}</style>
 
-      {/* Header */}
       <div className="header">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
           <div>
@@ -79,7 +80,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Filter Bar */}
       <div className="filter-bar">
         <button className="filter-btn">⚡ Quick</button>
         <button className="filter-btn">🛍 Shop All</button>
@@ -89,10 +89,8 @@ export default function Home() {
         <button className="filter-btn">% Discount ▾</button>
       </div>
 
-      {/* Section Title */}
       <div style={{ padding: '12px 16px 8px', fontSize: '15px', fontWeight: '700', color: '#1a1a1a', background: 'white', borderBottom: '1px solid #f0f0f0' }}>🥦 Fresh Vegetables & Grocery</div>
 
-      {/* Product Grid */}
       <div className="product-grid">
         {filtered.map(p => (
           <div key={p.id} className="product-card">
@@ -115,7 +113,6 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Cart Bar */}
       {totalItems > 0 && (
         <div className="cart-bar">
           <div>
@@ -126,7 +123,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* Bottom Nav */}
       <div className="bottom-nav">
         {[
           { icon: '🏠', label: 'Home', path: '/', active: true },
@@ -142,4 +138,4 @@ export default function Home() {
       </div>
     </div>
   )
-      }
+    }
