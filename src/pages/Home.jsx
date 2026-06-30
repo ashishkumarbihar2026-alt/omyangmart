@@ -50,9 +50,7 @@ export default function Home() {
   const totalPrice = products.reduce((sum, p) => sum + (cart[p.id] || 0) * p.price, 0)
 
   const addItem = (id) => setCart(prev => ({ ...prev, [id]: (prev[id] || 0) + 1 }))
-  const removeItem = (id) => setCart(prev => ({ ...prev, [id]: Math.max((prev[id] || 0) - 1, 0) }))
-
-  return (
+  const removeItem = (id) => setCart(prev => ({ ...prev, [id]: Math.max((prev[id] || 0) - 1, 0) }))return (
     <div style={{ background: '#f8f8f8', minHeight: '100vh', fontFamily: 'Poppins,sans-serif', paddingBottom: '120px' }}>
       <style>{styles}</style>
 
@@ -144,4 +142,4 @@ export default function Home() {
       </div>
     </div>
   )
-    }
+      }
