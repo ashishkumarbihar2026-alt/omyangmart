@@ -4,7 +4,7 @@ import { auth } from '../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 
 const products = [
-  { id: 1, name: 'Aloo (1kg)', price: 30, mrp: 40, emoji: '🥔', rating: 4.5, time: '10 min', off: 25, unit: '1 kg' },
+  { id: 1, name: 'Aloo (1kg)', price: 30, mrp: 40, emoji: '🥔', image: '/images/file_00000000a85882119971c6a782a8a9af.png', rating: 4.5, time: '10 min', off: 25, unit: '1 kg' },
   { id: 2, name: 'Tamatar (1kg)', price: 25, mrp: 35, emoji: '🍅', rating: 4.3, time: '10 min', off: 29, unit: '1 kg' },
   { id: 3, name: 'Pyaz (1kg)', price: 40, mrp: 50, emoji: '🧅', rating: 4.6, time: '10 min', off: 20, unit: '1 kg' },
   { id: 4, name: 'Doodh (1L)', price: 60, mrp: 70, emoji: '🥛', rating: 4.8, time: '10 min', off: 14, unit: '1 L' },
@@ -95,7 +95,16 @@ export default function Home() {
         {filtered.map(p => (
           <div key={p.id} className="product-card">
             <span className="discount-badge">{p.off}% off</span>
-            <div style={{ fontSize: '48px', textAlign: 'center', margin: '24px 0 6px' }}>{p.emoji}</div>
+            {p.image ? (
+              <img
+                src={p.image}
+                alt={p.name}
+                loading="lazy"
+                style={{ width: '100%', height: '90px', objectFit: 'contain', margin: '20px 0 6px', display: 'block' }}
+              />
+            ) : (
+              <div style={{ fontSize: '48px', textAlign: 'center', margin: '24px 0 6px' }}>{p.emoji}</div>
+            )}
             <div style={{ fontSize: '10px', color: '#888', marginBottom: '2px' }}>{p.unit}</div>
             <div style={{ fontSize: '12px', fontWeight: '600', color: '#1a1a1a', marginBottom: '4px', lineHeight: '1.3' }}>{p.name}</div>
             <div style={{ fontSize: '13px', fontWeight: '700', color: '#1a1a1a' }}>₹{p.price}</div>
