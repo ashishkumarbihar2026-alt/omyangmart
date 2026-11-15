@@ -1,1 +1,1 @@
-import { products } from '../data/products'
+const products = [import { products } from '../data/products']
