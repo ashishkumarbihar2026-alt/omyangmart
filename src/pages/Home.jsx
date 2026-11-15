@@ -5,8 +5,8 @@ import { onAuthStateChanged } from 'firebase/auth'
 
 const products = [
   { id: 1, name: 'Aloo (1kg)', price: 30, mrp: 40, emoji: '🥔', image: '/images/file_00000000a85882119971c6a782a8a9af.png', rating: 4.5, time: '10 min', off: 25, unit: '1 kg' },
-  { id: 2, name: 'Tamatar (1kg)', price: 25, mrp: 35, emoji: '🍅', rating: 4.3, time: '10 min', off: 29, unit: '1 kg' },
-  { id: 3, name: 'Pyaz (1kg)', price: 40, mrp: 50, emoji: '🧅', rating: 4.6, time: '10 min', off: 20, unit: '1 kg' },
+  { id: 2, name: 'Tamatar (1kg)', price: 25, mrp: 35, emoji: '🍅', image: '/images/tamatar.png', rating: 4.3, time: '10 min', off: 29, unit: '1 kg' },
+  { id: 3, name: 'Pyaz (1kg)', price: 40, mrp: 50, emoji: '🧅', image: '/images/pyaz.png', rating: 4.6, time: '10 min', off: 20, unit: '1 kg' } ,
   { id: 4, name: 'Doodh (1L)', price: 60, mrp: 70, emoji: '🥛', rating: 4.8, time: '10 min', off: 14, unit: '1 L' },
   { id: 5, name: 'Bread', price: 45, mrp: 55, emoji: '🍞', rating: 4.2, time: '10 min', off: 18, unit: '1 Pack' },
   { id: 6, name: 'Ande (12pcs)', price: 80, mrp: 96, emoji: '🥚', rating: 4.7, time: '10 min', off: 17, unit: '12 pcs' },
