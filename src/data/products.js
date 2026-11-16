@@ -2,6 +2,11 @@ const images = {
   1: '/images/file_00000000a85882119971c6a782a8a9af.png',
   2: '/images/tamatar.png',
   3: '/images/pyaz.png',
+  33: '/images/doodh.png',
+  37: '/images/ande.png',
+  38: '/images/bread.png',
+  45: '/images/atta.png',
+  46: '/images/chawal.png',
 }
 
 // [category, naam, unit, price, mrp, emoji]
