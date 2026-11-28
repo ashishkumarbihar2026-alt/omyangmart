@@ -9,6 +9,22 @@ const rows = [
   [38, 'Dairy & Bread', 'Bread', '1 Pack', 45, 55, '🍞', '/images/bread.png'],
   [45, 'Atta & Dal', 'Atta', '5 kg', 230, 260, '🌾', '/images/atta.png'],
   [46, 'Atta & Dal', 'Basmati Chawal', '1 kg', 110, 130, '🍚', '/images/chawal.png'],
+   [151, 'Snacks', 'Soan Papdi', '200 g', 55, 70, '🍬', '/images/soanpapdi.png'],
+  [152, 'Snacks', 'Soan Papdi', '400 g', 110, 135, '🍬', '/images/soanpapdi.png'],
+  [153, 'Drinks', 'Junior Horlicks', '500 g', 320, 329, '🥛', '/images/juniorhorlicks.png'],
+  [154, 'Drinks', 'Horlicks', '500 g', 260, 264, '🥛', '/images/horlicks.png'],
+  [155, 'Drinks', 'Lite Horlicks', '500 g', 320, 325, '🥛', '/images/litehorlicks.png'],
+  [156, 'Drinks', 'Horlicks', '1 kg', 430, 440, '🥛', '/images/horlicks1kg.png'],
+  [157, 'Health', 'Dabur Chyawanprash', '1 kg', 400, 440, '🍯', '/images/chyawanprash.png'],
+  [158, 'Dry Fruits', 'Pista Badam', '250 g', 240, 400, '🥜', '/images/pistabadam.png'],
+  [159, 'Dry Fruits', 'Kismis', '250 g', 125, 250, '🍇', '/images/kismis.png'],
+  [160, 'Dry Fruits', 'Walnut', '250 g', 300, 650, '🥜', '/images/walnut.png'],
+  [161, 'Dry Fruits', 'Anjeer', '250 g', 250, 700, '🟤', '/images/anjeer.png'],
+  [162, 'Dry Fruits', 'Kaju', '250 g', 250, 400, '🥜', '/images/kaju.png'],
+  [163, 'Dry Fruits', 'Dates', '500 g', 320, 400, '🟤', '/images/dates.png'],
+  [164, 'Dry Fruits', 'Kimia Kajur', '250 g', 230, 265, '🟤', '/images/kimakajur.png'],
+  [165, 'Snacks', 'Rusk', '200 g', 39, 40, '🍞', '/images/risk.png'],
+  [166, 'Snacks', 'Haldirams Bhujia', '200 g', 70, 90, '🥨', '/images/rambhujia.png'],
 ]
 
 export const products = rows.map(([id, cat, n, u, price, mrp, emoji, image]) => ({
